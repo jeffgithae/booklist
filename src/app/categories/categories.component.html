@@ -1,8 +1,47 @@
-<div class="form ">
-    <mat-form-field>
-      <mat-label>Add Book Categotry</mat-label>
-      <input matInput />
-    </mat-form-field>
+<div style=" width: 100%">
+  <mat-card style="padding: 2rem">
+    <div class="modal-content">
+      <h3>Add New Book Category</h3>
+      <form fxLayout="column" fxLayoutGap="10px" [formGroup]="categoryForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Book Category</mat-label>
+          <input matInput formControlName="categoryTitle" required />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="onSubmitModal()">
+          Submit
+        </button>
+      </form>
+    </div>
+  </mat-card>
 </div>
 
-<button mat-raised-button color="primary">Save</button>
+<div style="padding: 10px">
+  <mat-card>
+    <mat-card-content>Books List</mat-card-content>
+
+    <div class="table">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8"
+        matSort
+      >
+        <ng-container matColumnDef="categoryTitle">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by title"
+          >
+            Book Title
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.categoryTitle }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </mat-card>
+</div>

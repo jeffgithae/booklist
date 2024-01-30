@@ -6,20 +6,50 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { IbookCategory } from '../models';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSortModule } from '@angular/material/sort';
 
-const categories: IbookCategory[] = [
-  {id: 1, categoryTitle: 'Angular For Dummies', },
-]
+// const categories: IbookCategory[] = []
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule,MatCardModule],
+  imports: [
+    FormsModule,
+    MatTableModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    MatDialogModule
+  ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent {
-  displayedColumns: string[] = ['Title', ];
-  dataSource = categories;
+  displayedColumns: string[] = ['categoryTitle',];
+  dataSource : IbookCategory[] =[];;
+  categoryForm = new FormGroup({
+    categoryTitle: new FormControl<string | null>('', Validators.required)
+  })
+  private category:IbookCategory []=[]
+
+  onSubmitModal(){
+    const newBook: IbookCategory = { ...this.categoryForm.value };
+    this.category.push(newBook);
+    this.dataSource = [... this.category]
+    this.categoryForm.reset()
+
+    
+  }
+
 
 }

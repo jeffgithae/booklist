@@ -5,15 +5,15 @@ import { CategoriesComponent } from './categories/categories.component';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: '',
+        redirectTo: 'list',
         pathMatch: 'full'
     },
     {
-        path:'list',
-        component:BookListComponent
+        path: 'list',
+        component: BookListComponent
     },
     {
-        path:'category',
-        component:CategoriesComponent
+        path: 'category',
+        component: CategoriesComponent
     }
 ];

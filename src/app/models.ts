@@ -6,6 +6,5 @@ export interface IBooks {
 }
 
 export class IbookCategory {
-    id?: any;
-    categoryTitle?: string
+    categoryTitle?: string | null;
 }
