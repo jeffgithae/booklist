@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IBooks, IbookCategory } from '../models';
+import { IBooks, IBookCategory } from '../models';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -14,6 +14,9 @@ import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { CategoriesComponent } from '../categories/categories.component';
+import { map } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -33,7 +36,9 @@ import { CategoriesComponent } from '../categories/categories.component';
     FlexLayoutModule,
     MatButtonModule,
     // MatDialogModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule,
+    CommonModule
 
   ],
   templateUrl: './book-list.component.html',
@@ -42,51 +47,58 @@ import { CategoriesComponent } from '../categories/categories.component';
 })
 
 export class BookListComponent {
-  displayedColumns = ['title', 'year', 'author'];
+  displayedColumns = ['id', 'title', 'year', 'author', 'category','actions'];
   dataSource: IBooks[] = [];
-  bookCategory: IbookCategory[] =[];
   bookForm = new FormGroup({
     title: new FormControl<string | null>('', Validators.required),
     year: new FormControl<number | null>(null, Validators.required),
-    author: new FormControl<string | null>('', Validators.required)
+    author: new FormControl<string | null>('', Validators.required),
+    id: new FormControl<number | null>(null, Validators.required),
+    category: new FormControl<IBookCategory | null>(null, Validators.required)
   });
+  book: IBooks[] = [];
+  categories: IBookCategory[] = [];
 
-  constructor(private dialog: MatDialog) {}
-  private book: IBooks[] = [];
+  constructor(private dialog: MatDialog) { }
 
-  
- 
+
   onSubmit() {
-
     const newBook: IBooks = { ...this.bookForm.value };
     this.book.push(newBook);
     this.dataSource = [...this.book]
+    console.log(this.bookForm.value );
+    console.log(this.dataSource, "dataSource");
     this.bookForm.reset()
-
-  }
-
-  delete(){
-
   }
 
   openModal() {
     const dialogRef = this.dialog.open(CategoriesComponent, {
-      // Pass data (optional)
-      data: { }
-      
+      data: {}
+    });
+
+    dialogRef.componentInstance.categoriesChange.subscribe((result: IBookCategory[]) => {
+
+        this.categories = [...result];
+        console.log(this.categories);
       
       
     });
-  
-    // Handle closing and results
-    dialogRef.afterClosed().subscribe(result => {
-      // Process result from modal (optional)
-    // const newBook: IbookCategory = { ...this.categoryForm.value };
-    // this.category.push(newBook);
-    // console.log('category ', this.category)
-    });
+
+
+
   }
- 
+
+  deleteFromList(book: any) {
+    this.dataSource = this.dataSource.filter(function (currentBook) {
+      return currentBook !== book;
+    });
+    console.log(this.dataSource);
+  }
+
+
+
+
+
 
 
 }
