@@ -37,7 +37,6 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     FlexLayoutModule,
     MatButtonModule,
-    // MatDialogModule,
     MatDialogModule,
     MatIconModule,
     CommonModule,
@@ -58,16 +57,23 @@ export class BookListComponent {
   });
   book: IBooks[] = [];
   categories: IBookCategory[] = [];
+  isSaved: boolean = false;
+  invalidForm: boolean = false;
 
   constructor(private dialog: MatDialog) {}
 
   onSubmit() {
-    const newBook: IBooks = { ...this.bookForm.value };
-    this.book.push(newBook);
-    this.dataSource = [...this.book];
-    console.log(this.bookForm.value);
-    console.log(this.dataSource, 'dataSource');
-    this.bookForm.reset();
+    if (this.bookForm.valid) {
+      const newBook: IBooks = { ...this.bookForm.value };
+      this.book.push(newBook);
+      this.dataSource = [...this.book];
+      console.log(this.bookForm.value);
+      console.log(this.dataSource, 'dataSource');
+      this.bookForm.reset();
+    } else {
+      this.invalidForm = true;
+      console.log('invalid form');
+    }
   }
 
   openModal() {
@@ -79,6 +85,10 @@ export class BookListComponent {
       (result: IBookCategory[]) => {
         this.categories = [...result];
         console.log(this.categories);
+        dialogRef.close();
+        dialogRef.afterClosed().subscribe((isSaved: true) => {
+          this.isSaved = isSaved;
+        });
       }
     );
   }
