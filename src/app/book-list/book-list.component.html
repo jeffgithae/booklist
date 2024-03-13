@@ -40,9 +40,9 @@
               >New Book Category</mat-option
             >
             @for (category of categories; track category) {
-            <mat-option [value]="category.categoryTitle"
-              >{{ category.categoryTitle }}</mat-option
-            >
+            <mat-option [value]="category.categoryTitle">{{
+              category.categoryTitle
+            }}</mat-option>
             }
           </mat-select>
         </mat-form-field>

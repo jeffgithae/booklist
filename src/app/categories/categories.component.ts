@@ -6,7 +6,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { IBookCategory } from '../models';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -28,17 +34,16 @@ import { CommonModule } from '@angular/common';
     FlexLayoutModule,
     MatButtonModule,
     MatDialogModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+  styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent {
-
   displayedColumns = ['categoryTitle'];
   categories: IBookCategory[] = [];
   categoryForm = new FormGroup({
-    categoryTitle: new FormControl<string | null>('', Validators.required)
+    categoryTitle: new FormControl<string | null>('', Validators.required),
   });
 
   @Output() categoriesChange = new EventEmitter<IBookCategory[]>();
@@ -46,7 +51,7 @@ export class CategoriesComponent {
   onSubmitModal() {
     const newCategory: IBookCategory = { ...this.categoryForm.value };
     if (newCategory.categoryTitle?.length !== 0) {
-      this.categories.push(newCategory); 
+      this.categories.push(newCategory);
       this.categoriesChange.emit(this.categories);
       this.categoryForm.reset();
     }
