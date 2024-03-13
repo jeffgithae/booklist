@@ -86,8 +86,9 @@ export class BookListComponent {
         this.categories = [...result];
         console.log(this.categories);
         dialogRef.close();
-        dialogRef.afterClosed().subscribe((isSaved: true) => {
-          this.isSaved = isSaved;
+        dialogRef.afterClosed().subscribe((isSaved: boolean) => {
+          this.isSaved = true;
+          console.log(this.isSaved);
         });
       }
     );

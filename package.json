@@ -10,6 +10,10 @@
     "serve:ssr:Angular-Test": "node dist/angular-test/server/server.mjs",
     "lint": "ng lint"
   },
+  "engines": {
+    "node": "^18.13.0",
+    "npm": "9.8.0"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "17.2.4",

@@ -5,12 +5,12 @@
   <div style="margin: 2rem; width: 50%" fxLayout="column" fxLayoutGap="10px">
     <mat-card style="padding: 2rem">
       <div *ngIf="isSaved">
-        <h2 style="color: green">Categoy Saved!</h2>
+        <h2 style="color: green">
+          Categoy Saved! Click on the drop down to link book to category.
+        </h2>
       </div>
       <div *ngIf="invalidForm">
-        <h2 style="padding: 2rem; color: red">
-          Please FIll in the form correctly
-        </h2>
+        <h2 style="color: red">Please fill in the form correctly</h2>
       </div>
       <h4>Add book</h4>
       <form fxLayout="column" fxLayoutGap="10px" [formGroup]="bookForm">
