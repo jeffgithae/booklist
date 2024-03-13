@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { IBooks, IBookCategory } from '../models';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -10,11 +10,9 @@ import { MatCardModule } from '@angular/material/card';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatSortModule, } from '@angular/material/sort';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { CategoriesComponent } from '../categories/categories.component';
-import { map } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 
@@ -88,7 +86,7 @@ export class BookListComponent {
 
   }
 
-  deleteFromList(book: any) {
+  deleteFromList(book: []) {
     this.dataSource = this.dataSource.filter(function (currentBook) {
       return currentBook !== book;
     });
