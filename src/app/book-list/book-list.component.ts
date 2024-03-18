@@ -21,6 +21,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CategoriesComponent } from '../categories/categories.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @Component({
   selector: 'app-book-list',
@@ -58,8 +59,7 @@ export class BookListComponent {
   book: IBooks[] = [];
   categories: IBookCategory[] = [];
   isSaved: boolean = false;
-  invalidForm: boolean = false;
-
+  invalidForm: boolean = false
   constructor(private dialog: MatDialog) {}
 
   onSubmit() {
@@ -67,12 +67,12 @@ export class BookListComponent {
       const newBook: IBooks = { ...this.bookForm.value };
       this.book.push(newBook);
       this.dataSource = [...this.book];
-      console.log(this.bookForm.value);
-      console.log(this.dataSource, 'dataSource');
+      // console.log(this.bookForm.value);
+      // console.log(this.dataSource, 'dataSource');
       this.bookForm.reset();
     } else {
       this.invalidForm = true;
-      console.log('invalid form');
+      // console.log('invalid form');
     }
   }
 
@@ -84,16 +84,15 @@ export class BookListComponent {
     dialogRef.componentInstance.categoriesChange.subscribe(
       (result: IBookCategory[]) => {
         this.categories = [...result];
-        console.log(this.categories);
+        // console.log(this.categories);
         dialogRef.close();
         dialogRef.afterClosed().subscribe((isSaved: boolean) => {
           this.isSaved = true;
-          console.log(this.isSaved);
+          // console.log(this.isSaved);
         });
       }
     );
   }
-
   deleteFromList(book: []) {
     this.dataSource = this.dataSource.filter(function (currentBook) {
       return currentBook !== book;

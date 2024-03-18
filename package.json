@@ -11,7 +11,7 @@
     "lint": "ng lint"
   },
   "engines": {
-    "node": "^18.13.0",
+    "node": "18.13.0",
     "npm": "9.8.0"
   },
   "private": true,
