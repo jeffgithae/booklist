@@ -21,7 +21,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CategoriesComponent } from '../categories/categories.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { TextMaskModule } from 'angular2-text-mask';
 
 @Component({
   selector: 'app-book-list',
@@ -86,9 +85,8 @@ export class BookListComponent {
         this.categories = [...result];
         // console.log(this.categories);
         dialogRef.close();
-        dialogRef.afterClosed().subscribe((isSaved: boolean) => {
+        dialogRef.afterClosed().subscribe(() => {
           this.isSaved = true;
-          // console.log(this.isSaved);
         });
       }
     );
